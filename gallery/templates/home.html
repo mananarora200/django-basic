@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog-Z Bootstrap 5.0 HTML Template</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'templatemo-style.css' %}">
+<!--
+    
+TemplateMo 556 Catalog-Z
+
+https://templatemo.com/tm-556-catalog-z
+
+-->
+</head>
+<body>
+   
+    <!-- Page Loader -->
+    <!-- <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div> -->
+    
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-film mr-2"></i>
+                HOME
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1 active" aria-current="page" href="{% url 'home' %}">Photos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" href="{% url 'upload' %}">Image Upload</a>
+                </li>
+                
+            </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpg">
+        <form class="d-flex tm-search-form" method="post" action="/search">{% csrf_token %}
+            <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search" name="tag">
+            <button class="btn btn-outline-success tm-search-btn" type="submit" value="search">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </div>
+
+    <div class="container-fluid tm-container-content tm-mt-60">
+        <div class="row mb-4">
+            <h2 class="col-6 tm-text-primary">
+                Latest Photos
+            </h2>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+                <form action="" class="tm-text-primary">
+                    Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of 200
+                </form>
+            </div>
+        </div>
+        <div class="row tm-mb-90 tm-gallery">
+            {% for user in users %}
+        	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+
+                    <img src="{{media_url}}{{ user.upload_image }}" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>{{user.tags}}</h2>
+                        <a href="{% url 'view image' pk=user.id %}">View more</a>
+                    </figcaption>                    
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light">18 Oct 2020</span>
+                    <span>9,906 views</span>
+                </div>
+              
+            </div>
+            {% endfor %}
+        </div> <!-- row -->
+        <div class="row tm-mb-90">
+            <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
+                <div class="tm-paging d-flex">
+        {% if users.has_other_pages %}
+  <ul class="pagination">
+    {% if users.has_previous %}
+      <li><a href="?page={{ users.previous_page_number }}" class="btn btn-primary tm-btn-prev mb-2" >&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in users.paginator.page_range %}
+      {% if users.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}" class="active tm-paging-link">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if users.has_next %}
+      <li><a href="?page={{ users.next_page_number }}" class="btn btn-primary tm-btn-next">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+        </div>
+        </div>
+        </div>
+        <!-- <div class="row tm-mb-90">
+            <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
+                <a href="javascript:void(0);" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+                <div class="tm-paging d-flex">
+                    <a href="javascript:void(0);" class="active tm-paging-link">1</a>
+                    <a href="javascript:void(0);" class="tm-paging-link">2</a>
+                    <a href="javascript:void(0);" class="tm-paging-link">3</a>
+                    <a href="javascript:void(0);" class="tm-paging-link">4</a>
+                </div>
+                <a href="javascript:void(0);" class="btn btn-primary tm-btn-next">Next Page</a>
+            </div>            
+        </div>
+    </div> container-fluid, tm-container-content -->
+
+    
+    
+    
+</body>
+</html>

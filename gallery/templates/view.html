@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalog-Z Bootstrap 5.0 HTML Template</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'templatemo-style.css' %}">
+    <script>
+        function rotateImage(degree) {
+        $('#demo-image').animate({  transform: degree }, {
+        step: function(now,fx) {
+            $(this).css({
+                '-webkit-transform':'rotate('+now+'deg)', 
+                '-moz-transform':'rotate('+now+'deg)',
+                'transform':'rotate('+now+'deg)'
+            });
+        }
+        });
+    }
+    </script>
+<!--
+    
+TemplateMo 556 Catalog-Z
+
+https://templatemo.com/tm-556-catalog-z
+
+-->
+</head>
+<body>
+   
+    <!-- Page Loader -->
+    <!-- <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+    </div> -->
+    
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <i class="fas fa-film mr-2"></i>
+                HOME
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1 active" aria-current="page" href="{% url 'home' %}">Photos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" href="{% url 'upload' %}">Image Upload</a>
+                </li>
+                
+            </ul>
+            </div>
+        </div>
+    </nav>
+    {% for user in users %}
+    <div class="row tm-mb-90 tm-gallery" style="align-items: center;">
+        <div class = 'col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5'><img src="{{media_url}}{{ user.upload_image }}" id="demo-image" class="img-fluid" style="width: 200px; height: 300px;"/></div>
+
+        <figure class="effect-ming tm-video-item" style="width: 500px;">
+        
+        <label style="color: white;">Rotate Image:</label>
+        <input type="button" class="btnRotate" value="90" onClick="rotateImage(this.value);" />
+        <input type="button" class="btnRotate" value="-90" onClick="rotateImage(this.value);" />
+        <input type="button" class="btnRotate" value="180" onClick="rotateImage(this.value);" />
+        <input type="button" class="btnRotate" value="360" onClick="rotateImage(this.value);" />
+        </div>
+    </figure>
+        {% endfor %}
+
+</body>
+</html>
